@@ -9,7 +9,7 @@ require('dotenv').config();
 const userRoutes = require('./routes/userRoutes');
 const testRoutes = require('./routes/testRoutes');
 const productRoutes = require('./routes/productRoutes'); 
-// (Later you'll add transactionRoutes)
+const transactionRoutes = require('./routes/transactionRoutes');
 
 // Initialize Express app
 const app = express();
@@ -24,6 +24,7 @@ app.use(express.json());       // Parses JSON in requests
 // Route mounting
 app.use('/api/users', userRoutes);  // Everything in userRoutes is prefixed with /api/users
 app.use('/api/products', productRoutes); // Everything in productRoutes is prefixed with /api/products
+app.use('/api/transactions', transactionRoutes);
 app.use('/api/test', testRoutes);
 
 // Test route
