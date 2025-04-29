@@ -4,10 +4,10 @@ const db = require('../database/db');
 
 // Register new user
 const signupUser = (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { first_name, last_name, email, password, role } = req.body;
 
   // Simple validation
-  if (!name || !email || !password || !role) {
+  if (!first_name || !last_name || !email || !password || !role) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -15,8 +15,8 @@ const signupUser = (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   // Insert into DB
-  const sql = 'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)';
-  db.run(sql, [name, email, hashedPassword, role], function (err) {
+  const sql = 'INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)';
+  db.run(sql, [first_name, last_name, email, hashedPassword, role], function (err) {
     if (err) {
       return res.status(500).json({ message: 'User creation failed', error: err.message });
     }
