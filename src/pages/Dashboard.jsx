@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Sidebar from '../components/Sidebar';
 import API from '../api/api';
 import AddProductModal from '../components/AddProductModal';
+import ProductTable from "../components/ProductTable";
 
 const Dashboard = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [summary, setSummary] = useState(null);
+    const [products, setProducts] = useState([]);
 
 
     const handleAddSuccess = () => {
@@ -23,8 +25,18 @@ const Dashboard = () => {
         }
     };
 
+    const fetchProducts = async () => {
+        try {
+            const res = await API.get('/products');
+            setProducts(res.data);
+        } catch (err) {
+            console.error('Failed to load products:', err);
+        }
+    };
+
     useEffect(() => {
         fetchSummary();
+        fetchProducts();
     }, []);
 
     return(
@@ -67,8 +79,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="inventory-table">
-                    {/*added later*/}
-                    <p>Loading...</p>
+                    <ProductTable products={products} />
                 </div>
             </div>
         </div>
