@@ -19,6 +19,7 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS products (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      sku TEXT UNIQUE NOT NULL,
       name TEXT NOT NULL,
       category TEXT,
       quantity INTEGER NOT NULL DEFAULT 0,

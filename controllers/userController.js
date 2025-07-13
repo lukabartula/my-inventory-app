@@ -38,7 +38,7 @@ const loginUser = (req, res) => {
     if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
 
     // Generate JWT token
-    const token = jwt.sign({ id: user.id, role: user.role }, 'secretkey', { expiresIn: '2h' });
+    const token = jwt.sign({ id: user.id, role: user.role }, 'secretkey', { expiresIn: '24h' });
 
     res.json({ message: 'Login successful', token });
   });

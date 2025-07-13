@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
 
   try {
     // 4. Verify the token
-    const secretKey = 'secretkey'; // ⚡ Later, use process.env.JWT_SECRET
+    const secretKey = 'secretkey'; //  Later, use process.env.JWT_SECRET
     const decoded = jwt.verify(token, secretKey);
 
     // 5. Attach the decoded payload to request
