@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductTable = ({ products }) => {
+const ProductTable = ({ products, onEdit, onDelete }) => {
   if (!products || products.length === 0) {
     return <p>No products available.</p>;
   }
@@ -15,6 +15,8 @@ const ProductTable = ({ products }) => {
           <th>Quantity</th>
           <th>Cost</th>
           <th>Price</th>
+          <th>Edit</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +28,12 @@ const ProductTable = ({ products }) => {
             <td>{product.quantity}</td>
             <td>${product.cost_price.toFixed(2)}</td>
             <td>${product.selling_price.toFixed(2)}</td>
+            <td>
+              <button onClick={() => onEdit(product)}>✏️</button>
+            </td>
+            <td>
+              <button onClick={() => onDelete(product.id)}>🗑️</button>
+            </td>
           </tr>
         ))}
       </tbody>

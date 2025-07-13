@@ -14,7 +14,7 @@ const Sidebar = () => {
         <div className="sidebar">
             <h2 className="sidebar-title">My inventory app</h2>
             <nav className="sidebar-nav">
-                <NavLink to="/dashboard" activeclassName="active">Dasboard</NavLink>
+                <NavLink to="/dashboard" activeclassName="active">Dashboard</NavLink>
                 <NavLink to="/transactions" activeclassname="active">Transactions</NavLink>
                 <NavLink to="/sales" activeclassname="active">Sales</NavLink>
                 <NavLink to="/analytics" activeclassname="active">Analytics</NavLink>
