@@ -37,6 +37,7 @@ db.serialize(() => {
       user_id INTEGER,
       quantity_change INTEGER,
       change_type TEXT NOT NULL CHECK(change_type IN ('in', 'out')),
+      reason TEXT,
       timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (product_id) REFERENCES products(id),
       FOREIGN KEY (user_id) REFERENCES users(id)

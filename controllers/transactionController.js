@@ -3,7 +3,7 @@ const db = require('../database/db');
 // GET all transactions
 const getTransactions = (req, res) => {
     const sql = `
-    SELECT transactions.id, product_id, name AS product_name, user_id, quantity_change, change_type, timestamp
+    SELECT transactions.id, product_id, name AS product_name, user_id, quantity_change, change_type, reason, timestamp
     FROM transactions
     JOIN products ON transactions.product_id = products.id
     `;
@@ -17,7 +17,7 @@ const getTransactions = (req, res) => {
 
 // POST new transaction
 const createTransaction = (req, res) => {
-    const {product_id, quantity_change, change_type} = req.body;
+    const {product_id, quantity_change, change_type, reason} = req.body;
 
     if (!product_id || !quantity_change || !change_type) {
         return res.status(400).json({message: 'All fields required.'});
@@ -29,9 +29,9 @@ const createTransaction = (req, res) => {
 
     // inserting into transactions
     const insertSql = `
-    INSERT INTO transactions (product_id, user_id, quantity_change, change_type)VALUES (?, ?, ?, ?)
+    INSERT INTO transactions (product_id, user_id, quantity_change, change_type, reason)VALUES (?, ?, ?, ?, ?)
     `;
-    db.run(insertSql, [product_id, req.user.id, quantity_change, change_type], function(err) {
+    db.run(insertSql, [product_id, req.user.id, quantity_change, change_type, reason], function(err) {
         if (err) return res.status(500).json({message: 'Error creating transaction', error: err.message});
 
         // updating product quantity

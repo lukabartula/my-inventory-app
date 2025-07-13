@@ -44,8 +44,25 @@ const getMonthlyRevenue = (req, res) => {
     });
 };
 
+const getSummaryStats = (req, res) => {
+    const sql = `
+        SELECT 
+            (SELECT COUNT(*) FROM products) AS totalProducts,
+            (SELECT COUNT(*) FROM products WHERE quantity < 5) AS lowStockCount,
+            (SELECT SUM(total_sale_price) FROM sales) AS totalRevenue,
+            (SELECT COUNT(*) FROM sales) AS totalSales
+    `;
+
+    db.get(sql, [], (err, row) => {
+        if (err) return res.status(500).json({ message: 'Error fetching summary stats', error: err.message });
+        res.json(row);
+    });
+};
+
+
 module.exports = {
     getRevenue,
     getBestProducts,
-    getMonthlyRevenue
+    getMonthlyRevenue,
+    getSummaryStats
 };
