@@ -57,3 +57,5 @@ my-inventory-app/
 │   │   └── App.js           # Frontend entry point and routing
 ├── .env                     # Environment variables (optional)
 ├── README.md
+ 
+---
