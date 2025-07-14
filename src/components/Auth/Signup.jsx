@@ -44,10 +44,10 @@ const Signup = () => {
             <input name="last_name" placeholder="Last Name" value={formData.last_name} onChange={handleChange} required />
             <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
             <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-            <select className="signup-select" name="role" value={formData.role} onChange={handleChange} required>
+            {/* <select className="signup-select" name="role" value={formData.role} onChange={handleChange} required>
               <option value="admin">Admin</option>
               <option value="staff">Staff</option>
-            </select>
+            </select> */}
             <button type="submit">Create Account</button>
           </form>
           {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}

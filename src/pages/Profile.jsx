@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import API from '../api/api';
-import Sidebar from '../components/Sidebar';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import API from "../api/api";
+import Sidebar from "../components/Sidebar";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -10,19 +10,19 @@ const Profile = () => {
 
   const fetchCurrentUser = async () => {
     try {
-        const token = localStorage.getItem('token');
-        const payload = JSON.parse(atob(token.split('.')[1]));
+      const token = localStorage.getItem("token");
+      const payload = JSON.parse(atob(token.split(".")[1]));
 
-        const res = await API.get(`/users/${payload.id}`);
-        setCurrentUser(res.data);
+      const res = await API.get(`/users/${payload.id}`);
+      setCurrentUser(res.data);
     } catch {
-        toast.error("Failed to load profile.");
+      toast.error("Failed to load profile.");
     }
   };
 
   const fetchAllUsers = async () => {
     try {
-      const res = await API.get('/users');
+      const res = await API.get("/users");
       setAllUsers(res.data);
     } catch (err) {
       toast.error("Failed to load users.");
@@ -47,7 +47,7 @@ const Profile = () => {
     try {
       await API.put(`/users/${user.id}`, {
         ...user,
-        role: newRole
+        role: newRole,
       });
       toast.success("User role updated.");
       fetchAllUsers();
@@ -61,7 +61,7 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    if (currentUser?.role === 'admin') {
+    if (currentUser?.role === "admin") {
       fetchAllUsers();
     }
   }, [currentUser]);
@@ -70,24 +70,31 @@ const Profile = () => {
     <div className="dashboard-container">
       <Sidebar />
       <div className="main-content">
-        <div className='profile-section'>
-            <h1>My Profile</h1>
-            {currentUser && (
-              <div>
-                <p><strong>Name:</strong> {currentUser.first_name} {currentUser.last_name}</p>
-                <p><strong>Email:</strong> {currentUser.email}</p>
-                <p><strong>Role:</strong> {currentUser.role}</p>
-              </div>
-            )}
+        <div className="profile-section">
+          <h1>My Profile</h1>
+          {currentUser && (
+            <div>
+              <p>
+                <strong>Name:</strong> {currentUser.first_name}{" "}
+                {currentUser.last_name}
+              </p>
+              <p>
+                <strong>Email:</strong> {currentUser.email}
+              </p>
+              <p>
+                <strong>Role:</strong> {currentUser.role}
+              </p>
+            </div>
+          )}
         </div>
 
-        {currentUser?.role === 'admin' && (
+        {currentUser?.role === "admin" && (
           <>
-            <h2>All Users</h2>
+            <h2 className="all-users-header">All Users</h2>
             {loading ? (
-              <p>Loading users...</p>
+              <p style={{ marginLeft: "20px" }}>Loading users...</p>
             ) : (
-              <table className="data-table">
+              <table className="data-table all-users-table">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -100,21 +107,30 @@ const Profile = () => {
                 <tbody>
                   {allUsers.map((user) => (
                     <tr key={user.id}>
-                      <td>{user.first_name} {user.last_name}</td>
+                      <td>
+                        {user.first_name} {user.last_name}
+                      </td>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>
                         <select
-                          className='role-select'
+                          className="role-select"
                           value={user.role}
-                          onChange={(e) => handleRoleChange(user, e.target.value)}
+                          onChange={(e) =>
+                            handleRoleChange(user, e.target.value)
+                          }
                         >
                           <option value="admin">admin</option>
                           <option value="staff">staff</option>
                         </select>
                       </td>
                       <td>
-                        <button className='delete-button' onClick={() => handleDelete(user.id)}>🗑️</button>
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDelete(user.id)}
+                        >
+                          🗑️
+                        </button>
                       </td>
                     </tr>
                   ))}

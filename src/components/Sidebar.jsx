@@ -18,6 +18,7 @@ const Sidebar = () => {
                 <NavLink to="/transactions" activeclassname="active">Transactions</NavLink>
                 <NavLink to="/sales" activeclassname="active">Sales</NavLink>
                 <NavLink to="/analytics" activeclassname="active">Analytics</NavLink>
+                <NavLink to="/profile" activeclassname="active">Profile</NavLink>
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
             </nav>
         </div>
