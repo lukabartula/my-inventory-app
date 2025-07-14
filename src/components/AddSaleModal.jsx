@@ -19,20 +19,20 @@ const AddSaleModal = ({ isOpen, onClose, onSuccess }) => {
     }
   }, [isOpen]);
 
-    const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "product_id") {
-        const selectedProduct = products.find(p => p.id === parseInt(value, 10));
-        setFormData((prev) => ({
+      const selectedProduct = products.find(p => p.id === parseInt(value, 10));
+      setFormData((prev) => ({
         ...prev,
         product_id: value,
         sale_price_per_unit: selectedProduct ? selectedProduct.selling_price : ''
-        }));
+      }));
     } else {
-        setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
-    };
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +52,10 @@ const AddSaleModal = ({ isOpen, onClose, onSuccess }) => {
       toast.error("Failed to log sale.");
     }
   };
+
+  const totalPrice =
+    parseFloat(formData.quantity || 0) *
+    parseFloat(formData.sale_price_per_unit || 0);
 
   if (!isOpen) return null;
 
@@ -92,6 +96,10 @@ const AddSaleModal = ({ isOpen, onClose, onSuccess }) => {
             onChange={handleChange}
             required
           />
+
+          <p style={{ marginTop: '5px', fontWeight: 'bold', color: '#1abc9c' }}>
+            💰 Total: ${isNaN(totalPrice) ? '0.00' : totalPrice.toFixed(2)}
+          </p>
 
           <button type="submit">Submit</button>
           <button type="button" onClick={onClose}>

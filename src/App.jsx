@@ -9,6 +9,7 @@ import Signup from "./components/Auth/Signup";
 import Transactions from "./pages/Transactions";
 import Sales from "./pages/Sales";
 import Profile from "./pages/Profile";
+import Analytics from "./pages/Analytics";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/sales" element={<Sales />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/analytics" element={<Analytics />} />
         </Routes>
 
         <ToastContainer position="top-right" autoClose={3000} />
