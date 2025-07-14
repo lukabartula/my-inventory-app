@@ -40,3 +40,20 @@ A lightweight full-stack web application to help small businesses manage invento
 
 ## 📁 Folder Structure
 
+my-inventory-app/
+├── backend/
+│   ├── controllers/         # Logic for products, sales, users, transactions, analytics
+│   ├── database/            # SQLite DB and init script
+│   ├── middleware/          # Auth (JWT, role check)
+│   ├── routes/              # Express routes per feature
+│   └── server.js            # Entry point for backend
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── analytics/   # Chart components (MonthlyRevenueChart, etc.)
+│   │   │   └── modals/      # AddProductModal, AddSaleModal, etc.
+│   │   ├── pages/           # Dashboard, Transactions, Sales, Analytics, Profile
+│   │   ├── api/             # Axios instance
+│   │   └── App.js           # Frontend entry point and routing
+├── .env                     # Environment variables (optional)
+├── README.md
