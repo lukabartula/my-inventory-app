@@ -343,3 +343,48 @@
 .data-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+
+/* Profile Page */
+.profile-section {
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-section h2 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+  color: #2c3e50;
+}
+
+.profile-section p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.profile-section strong {
+  color: #1abc9c;
+}
+
+.role-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}

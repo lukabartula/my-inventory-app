@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify"; 
 import API from "../../api/api"; // axios instance
 import { useNavigate, NavLink } from "react-router-dom"; // Import Link
 
@@ -16,10 +17,11 @@ const Login = () => {
       const { token } = response.data;
 
       localStorage.setItem("token", token);
+      toast.success("Login successful!");
       navigate("/dashboard"); // Update this path if needed
     } catch (error) {
       console.error(error);
-      setError("Invalid email or password");
+      toast.error("Invalid email or password");
     }
   };
 

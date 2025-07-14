@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import AddSaleModal from '../components/AddSaleModal';
+import { toast } from 'react-toastify';
 import API from '../api/api';
 
 const Sales = () => {
   const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
 
   const fetchSales = async () => {
     try {
       const res = await API.get('/sales');
       setSales(res.data);
     } catch (err) {
-      console.error('Failed to fetch sales:', err);
+      toast.error('Failed to fetch sales:', err);
     } finally {
       setLoading(false);
     }
@@ -27,6 +31,9 @@ const Sales = () => {
       <div className="main-content">
         <div className="dashboard-header">
           <h1>Sales</h1>
+          <button className="add-button" onClick={() => setShowModal(true)}>
+            + Add Sale
+          </button>
         </div>
 
         {loading ? (
@@ -59,6 +66,15 @@ const Sales = () => {
             </tbody>
           </table>
         )}
+
+        <AddSaleModal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+          onSuccess={() => {
+            fetchSales();
+            setShowModal(false);
+          }}
+        />
       </div>
     </div>
   );

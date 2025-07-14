@@ -44,7 +44,58 @@ const loginUser = (req, res) => {
   });
 };
 
+// Get all users (admin only)
+const getAllUsers = (req, res) => {
+  const sql = 'SELECT id, first_name, last_name, email, role FROM users';
+  db.all(sql, [], (err, rows) => {
+    if (err) return res.status(500).json({ message: 'Failed to fetch users', error: err.message });
+    res.json(rows);
+  });
+};
+
+// Update user by ID
+const updateUser = (req, res) => {
+  const { id } = req.params;
+  const { first_name, last_name, email, role } = req.body;
+
+  const sql = `
+    UPDATE users
+    SET first_name = ?, last_name = ?, email = ?, role = ?
+    WHERE id = ?
+  `;
+  db.run(sql, [first_name, last_name, email, role, id], function (err) {
+    if (err) return res.status(500).json({ message: 'Failed to update user', error: err.message });
+    res.json({ message: 'User updated successfully' });
+  });
+};
+
+// Delete user by ID
+const deleteUser = (req, res) => {
+  const { id } = req.params;
+
+  const sql = 'DELETE FROM users WHERE id = ?';
+  db.run(sql, [id], function (err) {
+    if (err) return res.status(500).json({ message: 'Failed to delete user', error: err.message });
+    res.json({ message: 'User deleted successfully' });
+  });
+};
+
+const getUserById = (req, res) => {
+  const { id } = req.params;
+
+  const sql = 'SELECT id, first_name, last_name, email, role FROM users WHERE id = ?';
+  db.get(sql, [id], (err, user) => {
+    if (err) return res.status(500).json({ message: 'Failed to get user', error: err.message });
+    res.json(user);
+  });
+};
+
+
 module.exports = {
   signupUser,
-  loginUser
+  loginUser,
+  getAllUsers,
+  updateUser,
+  deleteUser,
+  getUserById
 };

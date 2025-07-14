@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Signup from "./components/Auth/Signup";
 import Transactions from "./pages/Transactions";
 import Sales from "./pages/Sales";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/sales" element={<Sales />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
 
-        <ToastContainer position="bottom-right" autoClose={3000} />
+        <ToastContainer position="top-right" autoClose={3000} />
       </>
     </Router>
   );

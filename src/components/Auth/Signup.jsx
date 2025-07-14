@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import API from '../../api/api';
 
@@ -26,11 +27,11 @@ const Signup = () => {
         e.preventDefault();
         try {
             await API.post('users/signup', formData);
-            alert('Signup successful! You can now log in.');
+            toast.success('Signup successful! You can now log in.');
             navigate('/');
         } catch(err) {
             console.log(err);
-            setError('Signup failed, try again.');
+            toast.error('Signup failed, try again.');
         }
     };
     
