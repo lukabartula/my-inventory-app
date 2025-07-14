@@ -73,6 +73,32 @@ const getLowStockProducts = (req, res) => {
   });
 };
 
+const getMonthlyProfit = (req, res) => {
+  const sql = `
+    SELECT 
+      strftime('%Y-%m', sales.timestamp) AS month,
+      SUM(sales.quantity * sales.sale_price_per_unit) AS totalRevenue,
+      SUM(sales.quantity * products.cost_price) AS totalCost,
+      SUM(sales.quantity * sales.sale_price_per_unit) - SUM(sales.quantity * products.cost_price) AS totalProfit
+    FROM sales
+    JOIN products ON sales.product_id = products.id
+    GROUP BY month
+    ORDER BY month;
+  `;
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ message: 'Failed to calculate monthly profit', error: err.message });
+    }
+    // Rename for frontend clarity
+    const formatted = rows.map(row => ({
+      month: row.month,
+      monthlyProfit: row.totalProfit
+    }));
+    res.json(formatted);
+  });
+};
+
 
 
 module.exports = {
@@ -80,5 +106,6 @@ module.exports = {
     getBestProducts,
     getMonthlyRevenue,
     getSummaryStats,
-    getLowStockProducts
+    getLowStockProducts,
+    getMonthlyProfit
 };

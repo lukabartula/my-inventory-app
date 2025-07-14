@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import MonthlyRevenueChart from '../components/analytics/MonthlyRevenueChart';
 import TopSellingProductsChart from '../components/analytics/TopSellingProductsChart';
 import LowStockProductsList from '../components/analytics/LowStockProductsList';
+import MonthlyProfitChart from '../components/analytics/MonthlyProfitChart';
 
 const Analytics = () => {
   return (
@@ -19,6 +20,8 @@ const Analytics = () => {
         <TopSellingProductsChart />
         {/* Low Stock Products List */}
         <LowStockProductsList />
+        {/* Monthly Profit Chart Component */}
+        <MonthlyProfitChart />
 
       </div>
     </div>
