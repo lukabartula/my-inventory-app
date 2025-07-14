@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import API from '../api/api';
 
 const AddProductModal = ({ isOpen, onClose, onSuccess, editingProduct }) => {
@@ -13,26 +14,30 @@ const AddProductModal = ({ isOpen, onClose, onSuccess, editingProduct }) => {
 
     // Load form with product if editing
     useEffect(() => {
-        if (editingProduct) {
-            setFormData({
-                sku: editingProduct.sku || '',
-                name: editingProduct.name || '',
-                category: editingProduct.category || '',
-                quantity: editingProduct.quantity || '',
-                cost_price: editingProduct.cost_price || '',
-                selling_price: editingProduct.selling_price || ''
-            });
-        } else {
-            setFormData({
-                sku: '',
-                name: '',
-                category: '',
-                quantity: '',
-                cost_price: '',
-                selling_price: ''
-            });
+        if (isOpen) {
+            if (editingProduct) {
+                setFormData({
+                    sku: editingProduct.sku || '',
+                    name: editingProduct.name || '',
+                    category: editingProduct.category || '',
+                    quantity: editingProduct.quantity || '',
+                    cost_price: editingProduct.cost_price || '',
+                    selling_price: editingProduct.selling_price || ''
+                });
+            } else {
+                // ✨ Reset form when adding a new product
+                setFormData({
+                    sku: '',
+                    name: '',
+                    category: '',
+                    quantity: '',
+                    cost_price: '',
+                    selling_price: ''
+                });
+            }
         }
-    }, [editingProduct]);
+    }, [isOpen, editingProduct]);
+
 
     const handleChange = (e) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -54,14 +59,16 @@ const AddProductModal = ({ isOpen, onClose, onSuccess, editingProduct }) => {
             if (editingProduct) {
                 // EDIT
                 await API.put(`/products/${editingProduct.id}`, payload);
+                toast.success("Product updated successfully!");
             } else {
                 // ADD NEW
                 await API.post('/products', payload);
+                toast.success("Product added successfully!");
             }
 
             onSuccess();
         } catch (err) {
-            alert(`Failed to ${editingProduct ? 'update' : 'add'} product: ${err.message}`);
+            toast.error(`Failed to ${editingProduct ? 'update' : 'add'} product.`);
         }
     };
 

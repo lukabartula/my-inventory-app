@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import Sidebar from "../components/Sidebar";
 import API from "../api/api";
 import AddProductModal from "../components/AddProductModal";
@@ -16,15 +17,17 @@ const Dashboard = () => {
     fetchSummary(); // Optionally refresh stats
   };
   const handleDeleteProduct = async (productId) => {
-  if (!window.confirm("Are you sure you want to delete this product?")) return;
+    if (!window.confirm("Are you sure you want to delete this product?")) return;
 
-  try {
-    await API.delete(`/products/${productId}`);
-    fetchProducts();
-  } catch (err) {
-    alert("Failed to delete product: " + err.message);
-  }
-};
+    try {
+        await API.delete(`/products/${productId}`);
+        toast.success("Product deleted successfully.");
+        fetchProducts();
+    } catch (err) {
+        toast.error("Failed to delete product.");
+    }
+  };
+
 
 
   const fetchSummary = async () => {
@@ -113,6 +116,9 @@ const Dashboard = () => {
         }}
         editingProduct={editProduct}
      />
+
+     <ToastContainer position="top-right" autoClose={3000} />
+
 
     </>
   );

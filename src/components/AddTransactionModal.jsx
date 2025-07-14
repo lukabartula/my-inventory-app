@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import API from '../api/api';
 
 const AddTransactionModal = ({ isOpen, onClose, onSuccess }) => {
@@ -36,10 +37,11 @@ const AddTransactionModal = ({ isOpen, onClose, onSuccess }) => {
 
         try {
             await API.post('/transactions', payload);
+            toast.success("Transaction logged successfully!");
             onSuccess();
             onClose();
         } catch (err) {
-            alert('Failed to log transaction: ' + err.message);
+            toast.error("Failed to log transaction.");
         }
     };
 
@@ -73,6 +75,8 @@ const AddTransactionModal = ({ isOpen, onClose, onSuccess }) => {
                 </form>
             </div>
         </div>
+        
+        
     );
 };
 
