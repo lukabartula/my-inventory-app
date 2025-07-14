@@ -40,23 +40,26 @@ A lightweight full-stack web application to help small businesses manage invento
 
 ## 📁 Folder Structure
 
-my-inventory-app/
-├── backend/
+my-inventory-app/                  
+├── backend/            
 │   ├── controllers/         
 │   ├── database/            
 │   ├── middleware/          
-│   ├── routes/             
-│   └── server.js            
+│   └── routes/                           
 ├── frontend/                     
-│   ├── src/                    
-│   │   ├── components/                 
-│   │   │   ├── analytics/              
-│   │   │   └── modals/                  
-│   │   ├── pages/                      
-│   │   ├── api/                    
-│   │   └── App.js               
-├── .env                     
-├── README.md
- 
+│   └── src/                    
+│      ├── components/                 
+│      │   ├── analytics/              
+│      │   └── Auth/                  
+│      ├── pages/                      
+│      ├── api/                    
+│      └── App.js               
+├── .env             
+├── README.md                   
+└── server.js                                 
 
+
+ 
 ---
+
+
