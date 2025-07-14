@@ -47,7 +47,7 @@ my-inventory-app/
 │   ├── middleware/          
 │   ├── routes/             
 │   └── server.js            
-├── frontend/
+├── frontend/                     
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── analytics/   
@@ -57,5 +57,6 @@ my-inventory-app/
 │   │   └── App.js           
 ├── .env                     
 ├── README.md
+ 
  
 ---
