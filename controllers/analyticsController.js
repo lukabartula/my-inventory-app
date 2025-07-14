@@ -59,10 +59,26 @@ const getSummaryStats = (req, res) => {
     });
 };
 
+const getLowStockProducts = (req, res) => {
+  const sql = `
+    SELECT id, name, sku, quantity
+    FROM products
+    WHERE quantity < 5
+    ORDER BY quantity ASC
+  `;
+
+  db.all(sql, [], (err, rows) => {
+    if (err) return res.status(500).json({ message: 'Error fetching low stock products.', error: err.message });
+    res.json(rows);
+  });
+};
+
+
 
 module.exports = {
     getRevenue,
     getBestProducts,
     getMonthlyRevenue,
-    getSummaryStats
+    getSummaryStats,
+    getLowStockProducts
 };
