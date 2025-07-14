@@ -48,15 +48,15 @@ my-inventory-app/
 │   ├── routes/             
 │   └── server.js            
 ├── frontend/                     
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── analytics/   
-│   │   │   └── modals/      
-│   │   ├── pages/           
-│   │   ├── api/             
-│   │   └── App.js           
+│   ├── src/                    
+│   │   ├── components/                 
+│   │   │   ├── analytics/              
+│   │   │   └── modals/                  
+│   │   ├── pages/                      
+│   │   ├── api/                    
+│   │   └── App.js               
 ├── .env                     
 ├── README.md
  
- 
+
 ---
