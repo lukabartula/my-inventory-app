@@ -17,7 +17,7 @@ router.get('/', verifyToken, getProducts);
 router.post('/', verifyToken, createProduct);
 
 // Update a product (protected)
-router.put('/:id', verifyToken, updateProduct);
+router.put('/:id', verifyToken, isAdmin, updateProduct);
 
 // Delete a product (protected)
 router.delete('/:id', verifyToken, isAdmin, deleteProduct);
