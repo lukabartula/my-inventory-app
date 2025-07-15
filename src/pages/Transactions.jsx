@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Sidebar from '../components/Sidebar';
 import AddTransactionModal from '../components/AddTransactionModal';
 import API from '../api/api';
@@ -28,15 +29,43 @@ const Transactions = () => {
     setShowModal(false);         // Close modal
   };
 
+  const handleDownloadPDF = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/transactions/download/pdf', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (!response.ok) throw new Error('Failed to download PDF');
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'transactions.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to download PDF.');
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <Sidebar />
       <div className="main-content">
         <div className="dashboard-header">
           <h1>Transactions</h1>
-          <button className="add-button" onClick={() => setShowModal(true)}>
-            + Log Transaction
-          </button>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button className="add-button" onClick={() => setShowModal(true)}>
+              + Log Transaction
+            </button>
+            <button className="add-button" onClick={handleDownloadPDF}>
+              📥 Download PDF
+            </button>
+          </div>
         </div>
 
         {loading ? (
